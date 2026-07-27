@@ -19,6 +19,17 @@ app.get("/posts", async (req, res) => {
   }
 });
 
+app.get("/dbcheck", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT table_name FROM information_schema.tables WHERE table_schema='public'"
+    );
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //  ADD POST HERE
 app.post("/posts", async (req, res) => {
   try {
