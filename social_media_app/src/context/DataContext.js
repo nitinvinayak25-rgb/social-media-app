@@ -31,31 +31,36 @@ export const DataProvider = ({children}) => {
             post.title.toLowerCase().includes(search.toLowerCase())
         );
     
-    setSearchResults(filteredResults.reverse());
+    setSearchResults([...filteredResults].reverse());
     }, [posts, search])
 
-    const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    
+  console.log("Submit button clicked");
 
-    const newPost = {
-      title: postTitle,
-      body: postBody,
-    };
-    try{
-      const response = await api.post("/posts",newPost)
-      const allPosts = [...posts,response.data];
+  const newPost = {
+    title: postTitle,
+    body: postBody,
+  };
 
-      setPosts(allPosts);
-      setPostTitle("");
-      setPostBody("");
+  console.log(newPost);
 
-      navigate("/");
-    }catch (err) {
-          console.log(`Error:${err.message}`);
-        }
- }
+  try {
+    const response = await api.post("/posts", newPost);
+    console.log(response.data);
+
+    const result = await api.get("/posts");
+    setPosts(result.data);
+
+    setPostTitle("");
+    setPostBody("");
+
+    navigate("/");
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   const handleEdit = async (id) => {
   
@@ -87,6 +92,9 @@ export const DataProvider = ({children}) => {
     }
   };
 
+    useEffect(() => {
+  console.log("Posts updated:", posts);
+  }, [posts]);
 
 
 

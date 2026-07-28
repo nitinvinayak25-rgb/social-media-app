@@ -6,9 +6,10 @@ const Post = ({ post }) => {
     <article className="Post">
       <Link to={`/post/${post.id}`}>
         <h2>{post.title}</h2>
-        <p className="PostDate">{new Date(post.created_at).toLocaleString()}</p>
+        <p className="PostDate">
+          {new Date(post.time).toLocaleString()}
+        </p>
       </Link>
-
 
       <p className="PostBody">
         {post.body.length <= 25
