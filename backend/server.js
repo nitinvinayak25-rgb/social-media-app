@@ -1,3 +1,4 @@
+require("dotenv").config(); 
 const pool = require("./db.js");
 const express = require("express");
 const cors = require("cors");
@@ -33,6 +34,8 @@ app.get("/dbcheck", async (req, res) => {
 //  ADD POST HERE
 app.post("/posts", async (req, res) => {
   try {
+
+    console.log(req.body);
     const { title, body } = req.body;
 
     const result = await pool.query(
