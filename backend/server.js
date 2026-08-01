@@ -39,8 +39,8 @@ app.post("/posts", async (req, res) => {
     const { title, body } = req.body;
 
     const result = await pool.query(
-      "INSERT INTO posts (title, time, body) VALUES ($1, $2, $3) RETURNING *",
-      [title, new Date(), body]
+    "INSERT INTO posts (title, body) VALUES ($1, $2) RETURNING *",
+    [title, body]
     );
 
     res.status(201).json(result.rows[0]);
@@ -57,8 +57,8 @@ app.put("/posts/:id", async (req, res) => {
     const { title, body } = req.body;
 
     const result = await pool.query(
-      "UPDATE posts SET title=$1, time=$2, body=$3 WHERE id=$4 RETURNING *",
-      [title, new Date(), body, id]
+      "UPDATE posts SET title=$1, body=$2 WHERE id=$3 RETURNING *",
+      [title, body, id]
     );
 
     res.json(result.rows[0]);
