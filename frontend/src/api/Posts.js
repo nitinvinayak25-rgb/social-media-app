@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:5000/posts"
+  baseURL: "https://social-media-app-nofz.onrender.com"
 });
 
