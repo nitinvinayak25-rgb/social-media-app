@@ -7,7 +7,7 @@ const Post = ({ post }) => {
       <Link to={`/post/${post.id}`}>
         <h2>{post.title}</h2>
         <p className="PostDate">
-          {new Date(post.time).toLocaleString()}
+          {new Date(post.created_at).toLocaleString()}
         </p>
       </Link>
 
