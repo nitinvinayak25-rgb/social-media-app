@@ -19,7 +19,7 @@ export const DataProvider = ({children}) => {
     const [editBody, setEditBody] = useState("");
     const navigate = useNavigate();
     const {width}=useWindowSize();
-    const {data,fetchError,isLoading} = useAxiosFetch("https://social-media-app-nofz.onrender.com/posts");
+    const {data,fetchError,isLoading} = useAxiosFetch("https://social-media-app-1-45hb.onrender.com/posts");
 
     useEffect( () => {
     setPosts(data || []);
