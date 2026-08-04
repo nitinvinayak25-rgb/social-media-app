@@ -10,6 +10,7 @@ const DataContext = createContext({})
 
 export const DataProvider = ({children}) => {
     const [posts, setPosts] = useState([]);
+    const [username, setUsername] = useState(localStorage.getItem("username") || "");
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [postTitle, setPostTitle] = useState("");
@@ -24,6 +25,12 @@ export const DataProvider = ({children}) => {
     setPosts(data || []);
     },[data]);
 
+  useEffect(() => {
+    if (username) {
+        localStorage.setItem("username", username);
+    }
+}, [username]);
+
     useEffect(() => {
         const filteredResults = posts.filter(
           (post) =>
@@ -37,21 +44,26 @@ export const DataProvider = ({children}) => {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  console.log("Submit button clicked");
+  const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+
+  console.log("Context username:", username);
+  console.log("LocalStorage username:", localStorage.getItem("username"));
 
   const newPost = {
+    id,
     title: postTitle,
     body: postBody,
+    username,
+    created_at: new Date().toISOString(),
   };
 
+  console.log("Context username:", username);
   console.log(newPost);
 
   try {
     const response = await api.post("/posts", newPost);
-    console.log(response.data);
 
-    const result = await api.get("/posts");
-    setPosts(result.data);
+    setPosts([...posts, response.data]);
 
     setPostTitle("");
     setPostBody("");
@@ -63,10 +75,14 @@ export const DataProvider = ({children}) => {
 };
 
   const handleEdit = async (id) => {
-  
-    const updatedPost={id,
+
+  const post = posts.find((p) => p.id === id);
+
+    const updatedPost={
+      id,
       title:editTitle,
-      body:editBody
+      body:editBody,
+      username: post.username,
     };
     try{
       const response = await api.put(`/posts/${id}`,updatedPost)
@@ -105,7 +121,7 @@ export const DataProvider = ({children}) => {
             searchResults,fetchError,isLoading,
             handleSubmit,postTitle,postBody,setPostBody,setPostTitle,
             setSearchResults, posts,handleEdit,setEditTitle,editBody,
-            setEditBody,editTitle,handleDelete
+            setEditBody,editTitle,handleDelete,username,setUsername,handleSubmit
 
         }}> 
             {children}

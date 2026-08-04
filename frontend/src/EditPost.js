@@ -8,6 +8,8 @@ const EditPost = () => {
 
   const post = posts.find((post) => post.id.toString() === id);
 
+  const username = localStorage.getItem("username");
+
   useEffect(() => {
     if (post) {
       setEditTitle(post.title);

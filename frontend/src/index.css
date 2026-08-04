@@ -210,6 +210,49 @@ body {
   margin-bottom: 1rem;
 }
 
+
+.Login {
+  display: flex;
+  margin-right:20%;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f4f4f4;
+}
+
+.Login form {
+  width: 350px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.Login input {
+  width: 100%;
+  padding: 20px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.Login button {
+  width: 100%;
+  padding: 20px;
+  background: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Login button:hover {
+  background: #005ecc;
+}
+
 .PostPage button {
   height: 48px;
   min-width: 48px;
